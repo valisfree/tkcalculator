@@ -7,8 +7,18 @@ root.title("Calculator")
 
 operations = []
 def get_number(event=0):
-    operations.append(ent.get())
-    ent.delete(0, END)
+    string = ent.get()
+    chrs = ["+", "-", "/", "*", "%", "x²", "√"]
+    if string in chrs:
+        operations.insert(1, string)
+        ent.delete(0, END)
+    elif string == "":
+        if len(operations) > 1:
+            operations.pop(1)
+        ent.delete(0, END)
+    else:
+        operations.append(string)
+        ent.delete(0, END)
 def clear_entry(event=0):
     operations.clear()
     ent.delete(0, END)
@@ -35,36 +45,46 @@ def add_number0(event=0):
 def add_dot(event=0):
     ent.insert(END, ".")
 def add_devnum(event=0):
-    ent.insert(END, "%")
+    get_number()
+    operations.append("%")
 def add_plus(event=0):
-    get_number(event)
-    operations.append("+")
+    get_number()
+    operations.insert(1, "+")
 def add_minus(event=0):
-    get_number(event)
-    operations.append("-")
+    get_number()
+    operations.insert(1, "-")
 def add_mult(event=0):
-    get_number(event)
-    operations.append("*")
+    get_number()
+    operations.insert(1, "*")
 def add_div(event=0):
     get_number()
-    operations.append("/")
+    operations.insert(1, "/")
 def add_exp(event=0):
+    get_number()
     ent.insert(END, "x²")
     sol()
 def add_sq(event=0):
+    get_number()
     ent.insert(END, "√")
+    sol()
 def sol(event=0):
     get_number()
     x = operations[0]
-    if operations[2]:
-        y = operations[2]
+    if len(operations) < 2:
+        return
     char = operations[1]
-    if x.isdigit() and y.isdigit(): # вещественные или целочисленные?
+    if len(operations) > 2:
+        y = operations[2]
+        if y.isdigit():
+            y = int(y)
+        else:
+            y = float(y)
+    if x.isdigit():
         x = int(x)
-        y = int(y)
     else:
         x = float(x)
-        y = float(y)
+    if char == "%":
+        sum = int(x) % int(y)
     if char == "+":
         sum = x + y
     if char == "-":
@@ -76,13 +96,14 @@ def sol(event=0):
     if char == "x²":
         sum = x * 2
     if char == "√":
-        sum = sqrt(x)
+        sum = pow(x, .5)
     ent.insert(END, sum)
+    operations.clear()
 
 ### FOR INTENDATION
 f_max=Frame(root)
 
-f_top=LabelFrame(f_max, text='HELLO BRO!')
+f_top=LabelFrame(f_max, text='tkcalculator')
 ent=Entry(f_top, width=15, bg='gray', font="Arial 14", text="5")
 
 ### TOP CLEAR BLOCK
@@ -142,10 +163,10 @@ f_r_four_line=Frame(f_big_right_block) # =
 but_sol=Button(f_r_four_line, text="=", font="Arial 24", command=sol)
 
 ### PACK TOP
-f_top_block.pack(fill=X)
-but_clear.pack(fill=X)
 f_top.pack(fill=X, padx=2, pady=2)
 ent.pack(fill=X)
+f_top_block.pack(fill=X)
+but_clear.pack(fill=X)
 
 ### PACK LEFT BUTTON BLOCK
 f_three_line.pack(fill=X)
