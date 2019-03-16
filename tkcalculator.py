@@ -37,7 +37,7 @@ def add_dot(event=0):
 def add_devnum(event=0):
     ent.insert(END, "%")
 def add_plus(event=0):
-    get_number()
+    get_number(event)
     operations.append("+")
 def add_minus(event=0):
     get_number(event)
@@ -50,14 +50,14 @@ def add_div(event=0):
     operations.append("/")
 def add_exp(event=0):
     ent.insert(END, "x²")
-    return
+    sol()
 def add_sq(event=0):
     ent.insert(END, "√")
-    return
 def sol(event=0):
     get_number()
     x = operations[0]
-    y = operations[2]
+    if operations[2]:
+        y = operations[2]
     char = operations[1]
     if x.isdigit() and y.isdigit(): # вещественные или целочисленные?
         x = int(x)
@@ -97,31 +97,31 @@ f_big_right_block=Frame(f_max)
 ### LEFT BUTTON BLOCK
 f_three_line=Frame(f_big_left_block) # 7-9
 but7=Button(f_three_line, width=2, text="7", font="Arial 24", command=add_number7)
-root.bind("<7>", add_number7)
+# root.bind("<7>", add_number7)
 but8=Button(f_three_line, width=2, text="8", font="Arial 24", command=add_number8)
-root.bind("<8>", add_number8)
+# root.bind("<8>", add_number8)
 but9=Button(f_three_line, width=2, text="9", font="Arial 24", command=add_number9)
-root.bind("<9>", add_number9)
+# root.bind("<9>", add_number9)
 
 f_two_line=Frame(f_big_left_block) # 4-6
 but4=Button(f_two_line, width=2, text="4", font="Arial 24", command=add_number4)
-root.bind("<4>", add_number4)
+# root.bind("<4>", add_number4)
 but5=Button(f_two_line, width=2, text="5", font="Arial 24", command=add_number5)
-root.bind("<5>", add_number5)
+# root.bind("<5>", add_number5)
 but6=Button(f_two_line, width=2, text="6", font="Arial 24", command=add_number6)
-root.bind("<6>", add_number6)
+# root.bind("<6>", add_number6)
 
 f_one_line=Frame(f_big_left_block) # 1-3
 but1=Button(f_one_line, width=2, text="1", font="Arial 24", command=add_number1)
-root.bind("<1>", add_number1)
+# root.bind("<1>", add_number1)
 but2=Button(f_one_line, width=2, text="2", font="Arial 24", command=add_number2)
-root.bind("<2>", add_number2)
+# root.bind("<2>", add_number2)
 but3=Button(f_one_line, width=2, text="3", font="Arial 24", command=add_number3)
-root.bind("<3>", add_number3)
+# root.bind("<3>", add_number3)
 
 f_null_line=Frame(f_big_left_block) # 0.%
 but0=Button(f_null_line, width=2, text="0", font="Arial 24", command=add_number0)
-root.bind("<0>", add_number0)
+# root.bind("<0>", add_number0)
 but_dot=Button(f_null_line, width=2, text=".", font="Arial 24", command=add_dot)
 but_remdiv=Button(f_null_line, width=2, text="%", font="Arial 24", command=add_devnum)
 
