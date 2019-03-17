@@ -1,3 +1,15 @@
+#!/usr/bin/env python3 
+
+# -*- coding: utf-8 -*-
+#-------------------------------------------------------------------------------
+# Name:        tkcalculator
+# Created:     16.03.2019
+# Version:     1.0
+# Copyright:   (c) 2019, Vale_Phtor, valisfree@yandex.ru
+# Licence:     Apache License version 2.0
+#-------------------------------------------------------------------------------
+
+
 from tkinter import *
 root = Tk()
 
